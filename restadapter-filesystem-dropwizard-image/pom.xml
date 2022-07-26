@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2022 Micro Focus or one of its affiliates.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.fileanalysissuite.restadapters.filesystem</groupId>
+        <artifactId>restadapter-filesystem-aggregator</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>restadapter-filesystem-dropwizard-image</artifactId>
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.fileanalysissuite.restadapters.filesystem</groupId>
+            <artifactId>restadapter-filesystem-dropwizard</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>build-docker-image</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>upload-docker-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <filter>restadapter-filesystem</filter>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <containerNamePattern>%a-%t</containerNamePattern>
+                    <images>
+                        <image>
+                            <alias>restadapter-filesystem</alias>
+                            <name>${dockerApolloOrg}restadapter-filesystem-dropwizard${dockerProjectVersion}</name>
+                            <build>
+                                <from>${dockerHubPublic}/cafapi/opensuse-jre11:3</from>
+                                <cmd>
+                                    <exec>
+                                        <args>/maven/adapter.sh</args>
+                                    </exec>
+                                </cmd>
+                                <healthCheck>
+                                    <cmd>curl -f http://localhost:8081/healthcheck || exit 1</cmd>
+                                </healthCheck>
+                                <assembly>
+                                    <mode>tar</mode>
+                                    <inline>
+                                        <fileSets>
+                                            <fileSet>
+                                                <fileMode>0755</fileMode>
+                                                <includes>
+                                                    <include>adapter.sh</include>
+                                                </includes>
+                                                <lineEnding>unix</lineEnding>
+                                            </fileSet>
+                                            <fileSet>
+                                                <directory>../restadapter-filesystem-dropwizard/src/main/config</directory>
+                                                <includes>
+                                                    <include>config.yml</include>
+                                                </includes>
+                                                <lineEnding>unix</lineEnding>
+                                                <outputDirectory>.</outputDirectory>
+                                            </fileSet>
+                                        </fileSets>
+                                        <dependencySets>
+                                            <dependencySet>
+                                                <useProjectArtifact>false</useProjectArtifact>
+                                                <scope>runtime</scope>
+                                            </dependencySet>
+                                        </dependencySets>
+                                    </inline>
+                                </assembly>
+                            </build>
+                            <run>
+                                <env>
+                                    <FAS_RESTADAPTER_JAVA_OPTS>
+                                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+                                    </FAS_RESTADAPTER_JAVA_OPTS>
+                                </env>
+                                <log>
+                                    <enabled>true</enabled>
+                                </log>
+                                <ports>
+                                    <port>${adapter.port}:8080</port>
+                                    <port>${adapter.adminport}:8081</port>
+                                    <port>${adapter.debugport}:5005</port>
+                                </ports>
+                                <wait>
+                                    <http>
+                                        <url>http://${docker.host.address}:${adapter.adminport}/healthcheck</url>
+                                    </http>
+                                    <time>120000</time>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                    <verbose>api,build</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>use-default-fixed-ports</id>
+            <properties>
+                <adapter.port>48080</adapter.port>
+                <adapter.adminport>48081</adapter.adminport>
+                <adapter.debugport>45005</adapter.debugport>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

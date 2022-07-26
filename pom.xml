@@ -55,6 +55,8 @@
 
     <modules>
         <module>restadapter-filesystem-core</module>
+        <module>restadapter-filesystem-dropwizard</module>
+        <module>restadapter-filesystem-dropwizard-image</module>
     </modules>
 
     <scm>
@@ -73,6 +75,9 @@
     <properties>
         <copyrightYear>2022</copyrightYear>
         <copyrightNotice>Copyright ${copyrightYear} Micro Focus or one of its affiliates.</copyrightNotice>
+        <dockerHubOrganization>apolloscm</dockerHubOrganization>
+        <dockerApolloOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerApolloOrg>
+        <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
         <enforceBannedDependencies>true</enforceBannedDependencies>
         <enforceCorrectDependencies>true</enforceCorrectDependencies>
     </properties>
@@ -85,8 +90,18 @@
                 <version>3.0.2</version>
             </dependency>
             <dependency>
+                <groupId>io.github.fileanalysissuite.adapters.rest.contract</groupId>
+                <artifactId>adapter-rest-java-jaxrs</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>io.github.fileanalysissuite.adaptersdk.convenience</groupId>
                 <artifactId>adaptersdk-convenience</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.fileanalysissuite.adaptersdk.impls.jaxrs</groupId>
+                <artifactId>adaptersdk-impl-jaxrs</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -100,6 +115,11 @@
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
+                <groupId>io.github.fileanalysissuite.restadapters.filesystem</groupId>
+                <artifactId>restadapter-filesystem-dropwizard</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.36</version>
@@ -108,6 +128,15 @@
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.40.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>

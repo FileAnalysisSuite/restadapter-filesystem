@@ -16,6 +16,7 @@
 package io.github.fileanalysissuite.restadapters.filesystem.dropwizard;
 
 import io.dropwizard.Application;
+import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Environment;
 import io.github.fileanalysissuite.adaptersdk.impls.jaxrs.AdapterSdk;
 import io.github.fileanalysissuite.restadapters.filesystem.core.FileSystemAdapter;
@@ -38,6 +39,10 @@ public final class FileSystemAdapterApplication extends Application<FileSystemAd
     ) throws Exception
     {
         environment.healthChecks().register("adapter", new FileSystemAdapterHealthCheck());
-        environment.jersey().register(AdapterSdk.wrap(new FileSystemAdapter()));
+
+        final JerseyEnvironment jersey = environment.jersey();
+        for (final Object singleton : AdapterSdk.wrap(new FileSystemAdapter())) {
+            jersey.register(singleton);
+        }
     }
 }

@@ -17,7 +17,6 @@ package io.github.fileanalysissuite.restadapters.filesystem.restadapter.filesyst
 
 import io.github.fileanalysissuite.adaptersdk.impls.jaxrs.AdapterSdk;
 import io.github.fileanalysissuite.restadapters.filesystem.core.FileSystemAdapter;
-import java.util.Collections;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -29,7 +28,7 @@ public class FileSystemAdapterApplication extends Application
 
     public FileSystemAdapterApplication()
     {
-        this.singletons = Collections.singleton(AdapterSdk.wrap(new FileSystemAdapter()));
+        this.singletons = AdapterSdk.wrap(new FileSystemAdapter());
     }
 
     @Override

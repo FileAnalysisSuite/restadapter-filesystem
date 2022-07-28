@@ -111,7 +111,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
                 queueAllFiles(pathString, subpath, handler, cancellationToken);
             } else {
                 final ItemMetadata itemMetadata = ConvenientItemMetadata.create(
-                    pathString,
+                    subpath.toString(),
                     subpath.getFileName().toString(),
                     subpathAttributes.size(),
                     subpathAttributes.lastModifiedTime().toInstant());

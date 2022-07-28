@@ -29,6 +29,10 @@
 
     <artifactId>restadapter-filesystem-dropwizard</artifactId>
 
+    <properties>
+        <debug.argument>-showversion</debug.argument>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

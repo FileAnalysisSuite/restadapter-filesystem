@@ -20,10 +20,10 @@ import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientFailureDetai
 import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientFileContents;
 import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientItemMetadata;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.AdapterDescriptor;
-import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.CancellationToken;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.ItemMetadata;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.OpenStreamFunction;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.RepositoryAdapter;
+import io.github.fileanalysissuite.adaptersdk.interfaces.framework.CancellationToken;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.FileDataResultsHandler;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.FileListResultsHandler;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.OptionsProvider;

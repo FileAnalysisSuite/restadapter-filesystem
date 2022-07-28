@@ -154,7 +154,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
                 .createdTime(itemLocationAttributes.creationTime().toInstant())
                 .accessedTime(itemLocationAttributes.lastAccessTime().toInstant())
                 .modifiedTime(itemLocationAttributes.lastModifiedTime().toInstant())
-                .additionalMetadata("IS_SYMBOLIC_LINK", itemLocationAttributes.isSymbolicLink())
+                .additionalMetadata("IS_SYMBOLIC_LINK", Boolean.toString(itemLocationAttributes.isSymbolicLink()))
                 .build();
 
             handler.queueItem(itemId, ConvenientFileContents.create(contentStream), newItemMetadata, cancellationToken);

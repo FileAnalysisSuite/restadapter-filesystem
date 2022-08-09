@@ -51,21 +51,21 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>start</id>
+                        <id>start-docker-image</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>start</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>stop</id>
+                        <id>stop-docker-image</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>upload-docker-image</id>
+                        <id>push-docker-image</id>
                         <phase>deploy</phase>
                         <goals>
                             <goal>push</goal>

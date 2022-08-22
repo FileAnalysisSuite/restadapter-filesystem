@@ -17,7 +17,6 @@ package io.github.fileanalysissuite.restadapters.filesystem.core;
 
 import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientAdapterDescriptor;
 import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientFailureDetails;
-import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientFileContents;
 import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientItemMetadata;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.AdapterDescriptor;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.ItemMetadata;
@@ -157,7 +156,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
                 .additionalMetadata("IS_SYMBOLIC_LINK", Boolean.toString(itemLocationAttributes.isSymbolicLink()))
                 .build();
 
-            handler.queueItem(itemId, ConvenientFileContents.create(contentStream), newItemMetadata, cancellationToken);
+            handler.queueItem(itemId, contentStream, newItemMetadata, cancellationToken);
         }
     }
 

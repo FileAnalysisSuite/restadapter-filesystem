@@ -72,7 +72,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
     @Override
     public AdapterDescriptor createDescriptor()
     {
-        return ConvenientAdapterDescriptor.create("RestFileSystemAdapter");
+        return ConvenientAdapterDescriptor.create("RestFileSystem");
     }
 
     @Override

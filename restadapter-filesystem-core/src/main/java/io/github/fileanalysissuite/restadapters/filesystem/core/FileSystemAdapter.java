@@ -31,7 +31,6 @@ import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RetrieveFileL
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RetrieveFilesDataRequest;
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -44,7 +43,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemAdapter.class);
 
-    private final Path basePath;
+    private final PathProvider pathProvider;
 
     public FileSystemAdapter()
     {
@@ -53,18 +52,18 @@ public final class FileSystemAdapter implements RepositoryAdapter
 
     public FileSystemAdapter(final Path basePath)
     {
-        this.basePath = resolveBasePath(basePath);
-        LOGGER.info("Base path: {}", this.basePath);
+        this.pathProvider = createPathProvider(basePath);
     }
 
     @Nonnull
-    private static Path resolveBasePath(final Path basePath)
+    private static PathProvider createPathProvider(final Path basePath)
     {
         if (basePath == null) {
-            LOGGER.info("Base path not specified.  Automatically selecting default filesystem root directory...");
-            return FileSystems.getDefault().getRootDirectories().iterator().next();
+            LOGGER.info("No base path restriction has been specified.");
+            return new UnrestrictedPathProvider();
         } else {
-            return basePath;
+            LOGGER.info("Base path: {}", basePath);
+            return new RestrictedPathProvider(basePath);
         }
     }
 
@@ -134,7 +133,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
             final String name = itemMetadata.getName();
             final String itemLocation = itemMetadata.getItemLocation();
 
-            final Path itemLocationPath = getPath(itemLocation);
+            final Path itemLocationPath = pathProvider.getPath(itemLocation);
             final BasicFileAttributes itemLocationAttributes;
             try {
                 itemLocationAttributes
@@ -163,17 +162,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
     @Nonnull
     private Path getPath(final OptionsProvider repositoryOptions) throws FileSystemRuntimeException
     {
-        return getPath(repositoryOptions.getOption("Path").orElseThrow(() -> new FileSystemRuntimeException("Path not supplied!")));
-    }
-
-    @Nonnull
-    private Path getPath(final String path) throws FileSystemRuntimeException
-    {
-        final Path suppliedPath = basePath.resolve(path).normalize();
-        if (!suppliedPath.startsWith(basePath)) {
-            throw new FileSystemRuntimeException("Adapter not does allows browsing outside " + basePath);
-        }
-
-        return suppliedPath;
+        return pathProvider.getPath(
+            repositoryOptions.getOption("Path").orElseThrow(() -> new FileSystemRuntimeException("Path not supplied!")));
     }
 }

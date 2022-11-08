@@ -1,1 +1,2 @@
 SEPG_BUILD_ENV_IMAGE=cafapi/buildenv-jdk8:1.0.0
+_COMMENT

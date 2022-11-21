@@ -4,9 +4,10 @@
 
 ### Using Dropwizard Docker Image
 
-> :warning: Docker cannot be installed on Virtual Machines in our infrastructure.
+> :warning: Docker cannot be installed on Virtual Machines on many VM infrastructures.
 
-Make sure [Docker for Desktop](https://docs.docker.com/desktop/install/windows-install/) is installed.
+Make sure [Docker for Desktop](https://docs.docker.com/desktop/install/windows-install/) is installed. This requires
+a license. Alternatively you can use the [Rancher Desktop](https://rancherdesktop.io/) which is free of charge.
 
 Open command prompt and run:
 

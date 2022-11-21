@@ -351,33 +351,33 @@
             <dependency>
                 <groupId>io.github.fileanalysissuite.adaptersdk.convenience</groupId>
                 <artifactId>adaptersdk-convenience</artifactId>
-                <version>1.0.0-US459016Terminology-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.github.fileanalysissuite.adaptersdk.impls.jaxrs</groupId>
                 <artifactId>adaptersdk-impl-jaxrs</artifactId>
-                <version>1.0.0-US459016Terminology-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.github.fileanalysissuite.adaptersdk.interfaces</groupId>
                 <artifactId>adaptersdk-interfaces</artifactId>
-                <version>1.0.0-US459016Terminology-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.github.fileanalysissuite.restadapters.filesystem</groupId>
                 <artifactId>restadapter-filesystem-core</artifactId>
-                <version>1.0.0-US459016Terminology-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.github.fileanalysissuite.restadapters.filesystem</groupId>
                 <artifactId>restadapter-filesystem-dropwizard</artifactId>
-                <version>1.0.0-US459016Terminology-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.github.fileanalysissuite.restadapters.filesystem</groupId>
                 <artifactId>restadapter-filesystem-war</artifactId>
                 <type>war</type>
-                <version>1.0.0-US459016Terminology-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.activation</groupId>

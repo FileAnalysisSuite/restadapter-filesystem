@@ -17,16 +17,16 @@ package io.github.fileanalysissuite.restadapters.filesystem.core;
 
 import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientAdapterDescriptor;
 import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientFailureDetails;
-import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientItemMetadata;
+import io.github.fileanalysissuite.adaptersdk.convenience.ConvenientFileMetadata;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.AdapterDescriptor;
-import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.ItemMetadata;
+import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.FileMetadata;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.OpenStreamFunction;
 import io.github.fileanalysissuite.adaptersdk.interfaces.extensibility.RepositoryAdapter;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.CancellationToken;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.FileDataResultsHandler;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.FileListResultsHandler;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.OptionsProvider;
-import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RepositoryItem;
+import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RepositoryFile;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RetrieveFileListRequest;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RetrieveFilesDataRequest;
 import java.io.BufferedInputStream;
@@ -108,13 +108,13 @@ public final class FileSystemAdapter implements RepositoryAdapter
             if (subpathAttributes.isDirectory()) {
                 queueAllFiles(pathString, subpath, handler, cancellationToken);
             } else {
-                final ItemMetadata itemMetadata = ConvenientItemMetadata.create(
+                final FileMetadata fileMetadata = ConvenientFileMetadata.create(
                     subpath.toString(),
                     subpath.getFileName().toString(),
                     subpathAttributes.size(),
                     subpathAttributes.lastModifiedTime().toInstant());
 
-                handler.queueItem(itemMetadata, parentGroupId, cancellationToken);
+                handler.queueFile(fileMetadata, parentGroupId, cancellationToken);
             }
         }
     }
@@ -126,36 +126,36 @@ public final class FileSystemAdapter implements RepositoryAdapter
         final CancellationToken cancellationToken
     )
     {
-        for (final RepositoryItem item : request.getItems()) {
-            final String itemId = item.getItemId();
-            final ItemMetadata itemMetadata = item.getMetadata();
+        for (final RepositoryFile file : request.getFiles()) {
+            final String fileId = file.getFileId();
+            final FileMetadata fileMetadata = file.getMetadata();
 
-            final String name = itemMetadata.getName();
-            final String itemLocation = itemMetadata.getItemLocation();
+            final String name = fileMetadata.getName();
+            final String fileLocation = fileMetadata.getFileLocation();
 
-            final Path itemLocationPath = pathProvider.getPath(itemLocation);
-            final BasicFileAttributes itemLocationAttributes;
+            final Path fileLocationPath = pathProvider.getPath(fileLocation);
+            final BasicFileAttributes fileLocationAttributes;
             try {
-                itemLocationAttributes
-                    = Files.readAttributes(itemLocationPath, BasicFileAttributes.class, LinkOption.NOFOLLOW_LINKS);
+                fileLocationAttributes
+                    = Files.readAttributes(fileLocationPath, BasicFileAttributes.class, LinkOption.NOFOLLOW_LINKS);
             } catch (final IOException ex) {
-                handler.registerFailure(itemLocation, ConvenientFailureDetails.create("Failed to read item attributes", ex));
+                handler.registerFailure(fileLocation, ConvenientFailureDetails.create("Failed to read file attributes", ex));
                 continue;
             }
 
-            final OpenStreamFunction contentStream = () -> new BufferedInputStream(Files.newInputStream(itemLocationPath));
+            final OpenStreamFunction contentStream = () -> new BufferedInputStream(Files.newInputStream(fileLocationPath));
 
-            final ItemMetadata newItemMetadata = ConvenientItemMetadata.builder()
+            final FileMetadata newFileMetadata = ConvenientFileMetadata.builder()
                 .name(name)
-                .itemLocation(itemLocation)
-                .size(itemLocationAttributes.size())
-                .createdTime(itemLocationAttributes.creationTime().toInstant())
-                .accessedTime(itemLocationAttributes.lastAccessTime().toInstant())
-                .modifiedTime(itemLocationAttributes.lastModifiedTime().toInstant())
-                .additionalMetadata("IS_SYMBOLIC_LINK", Boolean.toString(itemLocationAttributes.isSymbolicLink()))
+                .fileLocation(fileLocation)
+                .size(fileLocationAttributes.size())
+                .createdTime(fileLocationAttributes.creationTime().toInstant())
+                .accessedTime(fileLocationAttributes.lastAccessTime().toInstant())
+                .modifiedTime(fileLocationAttributes.lastModifiedTime().toInstant())
+                .additionalMetadata("IS_SYMBOLIC_LINK", Boolean.toString(fileLocationAttributes.isSymbolicLink()))
                 .build();
 
-            handler.queueItem(itemId, contentStream, newItemMetadata, cancellationToken);
+            handler.queueFile(fileId, contentStream, newFileMetadata, cancellationToken);
         }
     }
 

@@ -28,7 +28,7 @@ import io.github.fileanalysissuite.adaptersdk.interfaces.framework.FileListResul
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.OptionsProvider;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RepositoryFile;
 import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RetrieveFileListRequest;
-import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RetrieveFilesDataRequest;
+import io.github.fileanalysissuite.adaptersdk.interfaces.framework.RepositoryFilesRequest;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -121,7 +121,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
 
     @Override
     public void retrieveFilesData(
-        final RetrieveFilesDataRequest request,
+        final RepositoryFilesRequest request,
         final FileDataResultsHandler handler,
         final CancellationToken cancellationToken
     )

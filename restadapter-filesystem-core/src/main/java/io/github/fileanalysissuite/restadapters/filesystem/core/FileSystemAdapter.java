@@ -108,11 +108,12 @@ public final class FileSystemAdapter implements RepositoryAdapter
             if (subpathAttributes.isDirectory()) {
                 queueAllFiles(pathString, subpath, handler, cancellationToken);
             } else {
-                final FileMetadata fileMetadata = ConvenientFileMetadata.create(
-                    subpath.toString(),
-                    subpath.getFileName().toString(),
-                    subpathAttributes.size(),
-                    subpathAttributes.lastModifiedTime().toInstant());
+                final FileMetadata fileMetadata = ConvenientFileMetadata.builder()
+                                                        .fileLocation(subpath.toString())
+                                                        .name(subpath.getFileName().toString())
+                                                        .size(subpathAttributes.size())
+                                                        .modifiedTime(subpathAttributes.lastModifiedTime().toInstant())
+                                                        .build();
 
                 handler.queueFile(fileMetadata, parentGroupId, cancellationToken);
             }

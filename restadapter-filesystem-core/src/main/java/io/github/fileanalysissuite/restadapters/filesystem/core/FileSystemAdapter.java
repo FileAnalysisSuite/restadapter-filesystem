@@ -111,7 +111,6 @@ public final class FileSystemAdapter implements RepositoryAdapter
                 final FileMetadata fileMetadata = ConvenientFileMetadata.builder()
                                                         .fileLocation(subpath.toString())
                                                         .name(subpath.getFileName().toString())
-                                                        .size(subpathAttributes.size())
                                                         .modifiedTime(subpathAttributes.lastModifiedTime().toInstant())
                                                         .build();
 
@@ -149,7 +148,6 @@ public final class FileSystemAdapter implements RepositoryAdapter
             final FileMetadata newFileMetadata = ConvenientFileMetadata.builder()
                 .name(name)
                 .fileLocation(fileLocation)
-                .size(fileLocationAttributes.size())
                 .createdTime(fileLocationAttributes.creationTime().toInstant())
                 .accessedTime(fileLocationAttributes.lastAccessTime().toInstant())
                 .modifiedTime(fileLocationAttributes.lastModifiedTime().toInstant())

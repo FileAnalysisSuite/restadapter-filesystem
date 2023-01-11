@@ -35,6 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collections;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,7 +152,7 @@ public final class FileSystemAdapter implements RepositoryAdapter
                 .createdTime(fileLocationAttributes.creationTime().toInstant())
                 .accessedTime(fileLocationAttributes.lastAccessTime().toInstant())
                 .modifiedTime(fileLocationAttributes.lastModifiedTime().toInstant())
-                .additionalMetadata("IS_SYMBOLIC_LINK", Boolean.toString(fileLocationAttributes.isSymbolicLink()))
+                .additionalMetadata("IS_SYMBOLIC_LINK", Collections.singleton(Boolean.toString(fileLocationAttributes.isSymbolicLink())))
                 .build();
 
             handler.queueFile(fileId, contentStream, newFileMetadata, cancellationToken);

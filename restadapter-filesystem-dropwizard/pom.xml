@@ -24,7 +24,7 @@
     <parent>
         <groupId>io.github.fileanalysissuite.restadapters.filesystem</groupId>
         <artifactId>restadapter-filesystem-aggregator</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-244</version>
     </parent>
 
     <artifactId>restadapter-filesystem-dropwizard</artifactId>

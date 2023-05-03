@@ -350,7 +350,7 @@
             <dependency>
                 <groupId>io.github.fileanalysissuite.adaptersdk.impls.jaxrs</groupId>
                 <artifactId>adaptersdk-impl-jaxrs</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0-244</version>
             </dependency>
             <dependency>
                 <groupId>io.github.fileanalysissuite.adaptersdk.interfaces</groupId>

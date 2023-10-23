@@ -15,10 +15,10 @@
  */
 package io.github.fileanalysissuite.restadapters.filesystem.core;
 
+import jakarta.annotation.Nonnull;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import javax.annotation.Nonnull;
 
 final class UnrestrictedPathProvider implements PathProvider
 {

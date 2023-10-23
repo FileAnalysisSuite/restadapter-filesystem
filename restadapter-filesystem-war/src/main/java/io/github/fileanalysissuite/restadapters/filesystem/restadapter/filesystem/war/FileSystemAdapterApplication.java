@@ -17,9 +17,9 @@ package io.github.fileanalysissuite.restadapters.filesystem.restadapter.filesyst
 
 import io.github.fileanalysissuite.adaptersdk.impls.jaxrs.AdapterSdk;
 import io.github.fileanalysissuite.restadapters.filesystem.core.FileSystemAdapter;
+import jakarta.ws.rs.ApplicationPath;
+import jakarta.ws.rs.core.Application;
 import java.util.Set;
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
 
 @ApplicationPath("/")
 public class FileSystemAdapterApplication extends Application

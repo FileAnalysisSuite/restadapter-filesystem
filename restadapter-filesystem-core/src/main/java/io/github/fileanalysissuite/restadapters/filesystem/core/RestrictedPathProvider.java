@@ -15,9 +15,9 @@
  */
 package io.github.fileanalysissuite.restadapters.filesystem.core;
 
+import jakarta.annotation.Nonnull;
 import java.nio.file.Path;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 
 final class RestrictedPathProvider implements PathProvider
 {

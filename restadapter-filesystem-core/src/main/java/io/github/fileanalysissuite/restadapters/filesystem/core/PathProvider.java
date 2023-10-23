@@ -15,8 +15,8 @@
  */
 package io.github.fileanalysissuite.restadapters.filesystem.core;
 
+import jakarta.annotation.Nonnull;
 import java.nio.file.Path;
-import javax.annotation.Nonnull;
 
 interface PathProvider
 {

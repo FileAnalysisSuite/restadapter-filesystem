@@ -31,16 +31,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.github.fileanalysissuite.adaptersdk.convenience</groupId>
             <artifactId>adaptersdk-convenience</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.fileanalysissuite.adaptersdk.interfaces</groupId>
             <artifactId>adaptersdk-interfaces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

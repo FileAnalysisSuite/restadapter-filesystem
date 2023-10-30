@@ -15,7 +15,7 @@
  */
 package io.github.fileanalysissuite.restadapters.filesystem.dropwizard;
 
-import io.dropwizard.Configuration;
+import io.dropwizard.core.Configuration;
 
 public final class FileSystemAdapterConfiguration extends Configuration
 {

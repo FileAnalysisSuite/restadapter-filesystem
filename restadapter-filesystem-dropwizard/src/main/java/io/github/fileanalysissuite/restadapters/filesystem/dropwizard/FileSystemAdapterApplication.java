@@ -15,9 +15,9 @@
  */
 package io.github.fileanalysissuite.restadapters.filesystem.dropwizard;
 
-import io.dropwizard.Application;
+import io.dropwizard.core.Application;
+import io.dropwizard.core.setup.Environment;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
-import io.dropwizard.setup.Environment;
 import io.github.fileanalysissuite.adaptersdk.impls.jaxrs.AdapterSdk;
 import io.github.fileanalysissuite.restadapters.filesystem.core.FileSystemAdapter;
 

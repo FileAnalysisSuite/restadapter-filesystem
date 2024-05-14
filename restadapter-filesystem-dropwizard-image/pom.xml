@@ -82,7 +82,7 @@
                             <alias>restadapter-filesystem</alias>
                             <name>${dockerApolloOrg}restadapter-filesystem-dropwizard${dockerProjectVersion}</name>
                             <build>
-                                <from>${dockerHubPublic}/cafapi/opensuse-jre11:3</from>
+                                <from>${dockerHubPublic}/cafapi/opensuse-jre11:4</from>
                                 <cmd>
                                     <exec>
                                         <args>/maven/adapter.sh</args>

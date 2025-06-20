@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>restadapter-filesystem-dropwizard-image</artifactId>
+    <name>restadapter-filesystem-dropwizard-image</name>
     <packaging>pom</packaging>
 
     <dependencies>

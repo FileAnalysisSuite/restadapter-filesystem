@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>restadapter-filesystem-tomcat-image</artifactId>
+    <name>restadapter-filesystem-tomcat-image</name>
     <packaging>pom</packaging>
 
     <dependencies>

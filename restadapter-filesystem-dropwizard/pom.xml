@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>restadapter-filesystem-dropwizard</artifactId>
+    <name>restadapter-filesystem-dropwizard</name>
 
     <properties>
         <debug.argument>-showversion</debug.argument>

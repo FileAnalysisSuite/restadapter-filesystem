@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>restadapter-filesystem-core</artifactId>
+    <name>restadapter-filesystem-core</name>
 
     <dependencies>
         <dependency>

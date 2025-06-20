@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>restadapter-filesystem-war</artifactId>
+    <name>restadapter-filesystem-war</name>
     <packaging>war</packaging>
 
     <dependencies>
